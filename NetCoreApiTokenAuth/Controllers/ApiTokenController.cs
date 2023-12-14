@@ -14,7 +14,7 @@ namespace NetCoreApiTokenAuth.Controllers
         // NuGet\Install-Package Microsoft.AspNetCore.Authentication.JwtBearer -Version 7.0.14
 
         [Route("getAdmin")]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin")] // sadece admin
         [HttpGet]
         public string getAdmin()
         {
@@ -22,11 +22,26 @@ namespace NetCoreApiTokenAuth.Controllers
         }
 
         [Route("getMember")]
-        [Authorize(Roles = "member")]
+        [Authorize(Roles = "member")] // sadece member
         [HttpGet]
         public string getMember()
         {
             return "RAMBO2";
+        }
+
+        [Route("getHerkes")]
+        [Authorize] // herhangi bir token olsa yeterli
+        [HttpGet]
+        public string getHerkes()
+        {
+            return "RAMBO3";
+        }
+
+        [Route("getHerkes2")]
+        [HttpGet]
+        public string getHerkes2() // hiç tokene gerek yok
+        {
+            return "RAMBO32";
         }
 
         [Route("loginol")]
