@@ -17,18 +17,14 @@ namespace NetCoreApiTokenAuth
                     operation.Responses.Add("401", new OpenApiResponse { Description = "Unauthorized" });
 
                     operation.Security = new List<OpenApiSecurityRequirement>
-{
-new OpenApiSecurityRequirement
-{
-{
-new OpenApiSecurityScheme
-{
-Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = id }
-},
-new List<string>()
-}
-}
-};
+                             { 
+                          new OpenApiSecurityRequirement { 
+                                 {
+                                     new OpenApiSecurityScheme{
+                                     Reference = new       OpenApiReference       
+                                     { Type   =               ReferenceType.SecurityScheme, Id =     id }
+                                 },
+                             new List<string>() } } };
                 }
             }
         }
