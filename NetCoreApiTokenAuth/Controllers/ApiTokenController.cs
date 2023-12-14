@@ -9,7 +9,7 @@ namespace NetCoreApiTokenAuth.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
+    public class ApiTokenController : ControllerBase
     {
         // NuGet\Install-Package Microsoft.AspNetCore.Authentication.JwtBearer -Version 7.0.14
 
