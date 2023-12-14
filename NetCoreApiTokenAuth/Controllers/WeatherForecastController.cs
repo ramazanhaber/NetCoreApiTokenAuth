@@ -25,7 +25,7 @@ namespace NetCoreApiTokenAuth.Controllers
         [HttpGet]
         public string login(string username)
         {
-            return GenerateToken(username);
+            return "Bearer " + GenerateToken(username);
         }
 
       
