@@ -13,29 +13,42 @@ namespace NetCoreApiTokenAuth.Controllers
     {
         // NuGet\Install-Package Microsoft.AspNetCore.Authentication.JwtBearer -Version 7.0.14
 
-        [Route("get")]
-        [Authorize]
+        [Route("getAdmin")]
+        [Authorize(Roles = "admin")]
         [HttpGet]
-        public string Get()
+        public string getAdmin()
         {
             return "RAMBO";
         }
 
-        [Route("loginol")]
+        [Route("getMember")]
+        [Authorize(Roles = "member")]
         [HttpGet]
-        public string login(string username)
+        public string getMember()
         {
-            return "Bearer " + GenerateToken(username);
+            return "RAMBO2";
         }
 
-      
-        private string GenerateToken(string username)
+        [Route("loginol")]
+        [HttpGet]
+        public string login(string username, string role)
         {
+            return "Bearer " + GenerateToken(username,role);
+        }
+
+
+        private string GenerateToken(string username, string role)
+        {
+            var claims = new List<Claim>{
+                             new Claim(ClaimTypes.Name, username),
+                             new Claim(ClaimTypes.Role, role)
+                             };
+
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("your-secret-keyyour-secret-keyyour-secret-keyyour-secret-keyyour-secret-keyyour-secret-keyyour-secret-keyyour-secret-keyyour-secret-keyyour-secret-keyyour-secret-keyyour-secret-keyyour-secret-keyyour-secret-keyyour-secret-key"));
 
             var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
             var tokeOptions = new JwtSecurityToken(
-                claims: new List<Claim>(),
+                claims: claims,
                 expires: DateTime.Now.AddHours(10),
                 signingCredentials: signinCredentials
             );
