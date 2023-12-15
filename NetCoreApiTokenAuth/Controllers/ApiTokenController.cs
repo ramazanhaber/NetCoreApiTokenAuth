@@ -8,7 +8,7 @@ using System.Text;
 namespace NetCoreApiTokenAuth.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/v1/[controller]")]
     public class ApiTokenController : ControllerBase
     {
         // NuGet\Install-Package Microsoft.AspNetCore.Authentication.JwtBearer -Version 7.0.14
