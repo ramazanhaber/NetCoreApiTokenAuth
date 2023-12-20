@@ -62,6 +62,36 @@ namespace NetCoreApiTokenAuth.Controllers
 
         }
 
+        [Route("getCache6")]
+        [HttpGet]
+        [Produces("text/plain")]
+        public string GetCache6(int sayi)
+        {
+            // Her bir sayý için farklý önbellek anahtarý oluþtur
+            string cacheKey = $"getCache6_{sayi}";
+
+            // Önbellekte var mý kontrol et
+            if (_cache.TryGetValue(cacheKey, out string cachedValue))
+            {
+                // Önbellekte bulunan deðeri kullanabilirsiniz
+                return cachedValue;
+            }
+            else
+            {
+                // Önbellekte bulunmuyorsa, hesaplamayý yap
+                string result = (sayi * 30).ToString();
+
+                // Hesaplanan deðeri önbelleðe ekle
+                _cache.Set(cacheKey, result, new MemoryCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(60) // 60 saniye önbellekte sakla
+                });
+
+                return result;
+            }
+        }
+
+
         [Route("clearCache")]
         [HttpGet]
         public IActionResult ClearCache()
