@@ -1,7 +1,7 @@
 ﻿using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace NetCoreApiTokenAuth
+namespace NetCoreApiTokenAuth.Helpers
 {
     public class SecurityRequirementsOperationFilter : IOperationFilter
     {
@@ -17,11 +17,11 @@ namespace NetCoreApiTokenAuth
                     operation.Responses.Add("401", new OpenApiResponse { Description = "Unauthorized" });
 
                     operation.Security = new List<OpenApiSecurityRequirement>
-                             { 
-                          new OpenApiSecurityRequirement { 
+                             {
+                          new OpenApiSecurityRequirement {
                                  {
                                      new OpenApiSecurityScheme{
-                                     Reference = new       OpenApiReference       
+                                     Reference = new       OpenApiReference
                                      { Type   =               ReferenceType.SecurityScheme, Id =     id }
                                  },
                              new List<string>() } } };

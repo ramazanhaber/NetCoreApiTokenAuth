@@ -1,8 +1,9 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using NetCoreApiTokenAuth;
+using NetCoreApiTokenAuth.Helpers;
 using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +15,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddResponseCaching(); // cach için
 
 builder.Services.AddMemoryCache();// IMemoryCache'i ekleyin
+
+// ip filtreleme  ::1 127.0.0.1   -> bu iki deðer localhost demek
+List<string> iplerim =new List<string> { "78.163.180.32","158.55.615.55", "::1", "127.0.0.1" };
+builder.Services.AddScoped<IPFilterMiddleware>(provider => new IPFilterMiddleware(iplerim));
+
 
 builder.Services.AddSwaggerGen(c =>
 {
@@ -66,6 +72,10 @@ app.UseAuthentication();// auth için
 app.UseAuthorization();
 
 app.MapControllers();
+
+
+
+app.UseMiddleware<IPFilterMiddleware>(); // IP filtreleme middleware'ýný ekleyin
 
 app.Run();
 
