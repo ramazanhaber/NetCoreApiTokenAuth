@@ -11,6 +11,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 //builder.Services.AddSwaggerGen();
 
+builder.Services.AddResponseCaching(); // cach için
+
+builder.Services.AddMemoryCache();// IMemoryCache'i ekleyin
+
 builder.Services.AddSwaggerGen(c =>
 {
 
@@ -44,6 +48,8 @@ app.UseCors(builder => builder
 .AllowAnyMethod()
 .AllowAnyOrigin()
 );
+
+app.UseResponseCaching(); // cach için
 
 if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
